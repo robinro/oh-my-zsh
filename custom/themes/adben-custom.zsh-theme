@@ -65,6 +65,50 @@ ZSH_THEME_GIT_PROMPT_RENAMED="${PR_RESET}${PR_YELLOW} ➜${PR_RESET}"
 ZSH_THEME_GIT_PROMPT_UNMERGED="${PR_RESET}${PR_YELLOW} ═${PR_RESET}"
 ZSH_THEME_GIT_PROMPT_UNTRACKED="${PR_RESET}${PR_YELLOW} ✭${PR_RESET}"
 # ########## GIT ###########
+
+
+# local git_branch='$(git_prompt_info)%{$reset_color%}$(git_remote_status)'
+
+# PROMPT="%{$fg[green]%}╭─%n@%m %{$reset_color%}%{$fg[yellow]%}in %~ %{$reset_color%}${git_branch}
+# %{$fg[green]%}╰\$ %{$reset_color%}"
+
+# ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[yellow]%}on "
+# ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
+
+# ZSH_THEME_GIT_PROMPT_DIRTY="%{$reset_color%}%{$fg[red]%} ✘ %{$reset_color%}"
+# ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[green]%} ✔ %{$reset_color%}"
+
+ZSH_THEME_GIT_PROMPT_REMOTE_STATUS_DETAILED=true
+ZSH_THEME_GIT_PROMPT_REMOTE_STATUS_PREFIX="%{$fg[yellow]%}("
+ZSH_THEME_GIT_PROMPT_REMOTE_STATUS_SUFFIX="%{$fg[yellow]%})%{$reset_color%}"
+
+
+
+# git_prompt_info()
+ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg_bold[green]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
+
+# parse_git_dirty()
+ZSH_THEME_GIT_PROMPT_DIRTY=""
+ZSH_THEME_GIT_PROMPT_CLEAN=""
+
+# git_prompt_status()
+ZSH_THEME_GIT_PROMPT_ADDED=" %{$fg[green]%}✚%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_MODIFIED=" %{$fg[blue]%}✹%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_DELETED=" %{$fg[red]%}✖%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_RENAMED=" %{$fg[magenta]%}➼%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_UNMERGED=" %{$fg[yellow]%}═%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_UNTRACKED=" %{$fg[cyan]%}✭%{$reset_color%}"
+
+# git_prompt_ahead()
+ZSH_THEME_GIT_PROMPT_AHEAD=" %{$fg_bold[red]%}!%{$reset_color%}"
+
+# git_remote_status
+ZSH_THEME_GIT_PROMPT_BEHIND_REMOTE="%{$fg[red]%} ↓"
+ZSH_THEME_GIT_PROMPT_AHEAD_REMOTE="%{$fg_bold[blue]%} ↑"
+ZSH_THEME_GIT_PROMPT_DIVERGED_REMOTE="%{$fg[magenta]%} ↕"
+
+
 function precmd {
     #gets the fortune
 #    ps1_fortune () {
@@ -111,7 +155,7 @@ set_prompt () {
     PROMPT='${RED_START}$(prompt_context)
 ${GREEN_START_P1}'
     #RPROMPT='${PR_RESET}$(git_prompt_info)$(svn_prompt_info)${PR_YELLOW}%D{%R.%S %a %b %d %Y} ${GREEN_END}${PR_RESET}'
-    RPROMPT='${PR_RESET}$(git_prompt_info)$(svn_prompt_info)'
+	RPROMPT='${PR_RESET}$(git_prompt_info)$(git_remote_status)$(git_prompt_status)'
     # Matching continuation prompt
     PROMPT2='${GREEN_BASE_START}${PR_RESET} %_ ${GREEN_BASE_START}${PR_RESET} '
     # ######### PROMPT #########
