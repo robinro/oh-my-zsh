@@ -47,12 +47,12 @@ VCS_DIRTY_COLOR="${PR_RESET}${PR_YELLOW}"
 Vcs_CLEAN_COLOR="${PR_RESET}${PR_GREEN}"
 VCS_SUFIX_COLOR="${PR_RESET}${PR_RED}› ${PR_RESET}"
 # ########## COLOR ###########
-# ########## SVN ###########
-ZSH_THEME_SVN_PROMPT_PREFIX="${PR_RESET}${PR_RED}‹svn:"
-ZSH_THEME_SVN_PROMPT_SUFFIX=""
-ZSH_THEME_SVN_PROMPT_DIRTY="${VCS_DIRTY_COLOR} ✘${VCS_SUFIX_COLOR}"
-ZSH_THEME_SVN_PROMPT_CLEAN="${VCS_CLEAN_COLOR} ✔${VCS_SUFIX_COLOR}"
-# ########## SVN ###########
+# # ########## SVN ###########
+# ZSH_THEME_SVN_PROMPT_PREFIX="${PR_RESET}${PR_RED}‹svn:"
+# ZSH_THEME_SVN_PROMPT_SUFFIX=""
+# ZSH_THEME_SVN_PROMPT_DIRTY="${VCS_DIRTY_COLOR} ✘${VCS_SUFIX_COLOR}"
+# ZSH_THEME_SVN_PROMPT_CLEAN="${VCS_CLEAN_COLOR} ✔${VCS_SUFIX_COLOR}"
+# # ########## SVN ###########
 # ########## GIT ###########
 ZSH_THEME_GIT_PROMPT_PREFIX="${PR_RESET}${PR_RED}‹git:"
 ZSH_THEME_GIT_PROMPT_SUFFIX=""
@@ -154,8 +154,13 @@ set_prompt () {
     # ######### PROMPT #########
     PROMPT='${RED_START}$(prompt_context)
 ${GREEN_START_P1}'
+	# best version
+	RPROMPT='${PR_RESET}$(git_prompt_info)$(git_prompt_status)'
+	
+	# old versions:
     #RPROMPT='${PR_RESET}$(git_prompt_info)$(svn_prompt_info)${PR_YELLOW}%D{%R.%S %a %b %d %Y} ${GREEN_END}${PR_RESET}'
-	RPROMPT='${PR_RESET}$(git_prompt_info)$(git_remote_status)$(git_prompt_status)'
+	# remote status is slow
+	#RPROMPT='${PR_RESET}$(git_prompt_info)$(git_remote_status)$(git_prompt_status)'
     # Matching continuation prompt
     PROMPT2='${GREEN_BASE_START}${PR_RESET} %_ ${GREEN_BASE_START}${PR_RESET} '
     # ######### PROMPT #########
